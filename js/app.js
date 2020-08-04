@@ -27,7 +27,6 @@ function repeatXI(callback, interval, repeats, immediate, finalCallback) {
 
 var app = (function (board) {
   let canvas;
-  let ctx;
   let animalSheet;
 
   var GAME_STATES = {
@@ -71,6 +70,8 @@ var app = (function (board) {
         var mousePos = getMousePos(canvas, evt);
         var message = "Click position: " + mousePos.x + "," + mousePos.y;
         writeMessage(canvas, message);
+
+        board.checkClick(mousePos.x, mousePos.y);
       },
       false
     );
@@ -98,24 +99,23 @@ var app = (function (board) {
       canvas.height = canvas.getBoundingClientRect().height;
       canvas.width = canvas.getBoundingClientRect().width;
 
-      ctx = canvas.getContext("2d");
-
       setupEventListeners();
 
       animalSheet = new Image();
       animalSheet.onload = start;
       animalSheet.src =
-        "https://cdn-learn.adafruit.com/assets/assets/000/074/996/original/gaming_marioSNESSheet.png?1556309093";
+        "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/925b15f6-d2a5-48f2-8b7c-374de8979662/ddfchqu-26d70e22-38d1-4335-9bee-765f6951ad5b.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvOTI1YjE1ZjYtZDJhNS00OGYyLThiN2MtMzc0ZGU4OTc5NjYyXC9kZGZjaHF1LTI2ZDcwZTIyLTM4ZDEtNDMzNS05YmVlLTc2NWY2OTUxYWQ1Yi5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.xj2nBs_iGbFpJkNtFUMcOiotIivlfeJ7HsDayhR3HPk";
 
-      board.init(ctx, animalSheet);
+      board.init(canvas, animalSheet);
 
-      let animal = new Animal("animal1", animalSheet, 0, 0);
+      let animal = new Animal("animal1");
+      animal.init(animalSheet, 24, 387, 73, 95);
       board.addGameObject(animal);
 
-      let animal2 = new Animal("animal2", animalSheet, 100, 100);
-      board.addGameObject(animal2);
+      // let animal2 = new Animal("animal2", animalSheet, 100, 100);
+      // board.addGameObject(animal2);
 
-      setInterval(update, 330); // 33 milliseconds = ~ 30 frames per sec
+      setInterval(update, 150); // 33 milliseconds = ~ 30 frames per sec
     },
   };
 })(gameBoard);

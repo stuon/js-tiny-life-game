@@ -1,6 +1,6 @@
 class Animal extends GameObject {
-  constructor(name, image, positionX, positionY) {
-    super(name, image, positionX, positionY);
+  constructor(name) {
+    super(name);
   }
 
   update(ctx, imageSheet) {

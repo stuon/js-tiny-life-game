@@ -27,7 +27,8 @@ function repeatXI(callback, interval, repeats, immediate, finalCallback) {
 
 var app = (function (board) {
   let canvas;
-  let animalSheet;
+  let animalImageSheet;
+  let backgroundImage;
 
   var GAME_STATES = {
     Normal: 1,
@@ -82,7 +83,13 @@ var app = (function (board) {
   };
 
   let start = function () {
-    console.log("game starting");
+    var backgroundLoaded =
+      backgroundImage.complete && backgroundImage.naturalHeight !== 0;
+    var animalImageSheetLoaded =
+      animalImageSheet.complete && animalImageSheet.naturalHeight !== 0;
+
+    if (backgroundLoaded && animalImageSheetLoaded)
+      console.log("game starting");
   };
 
   let update = function () {
@@ -99,20 +106,24 @@ var app = (function (board) {
 
       setupEventListeners();
 
-      animalSheet = new Image();
-      animalSheet.onload = start;
-      animalSheet.src =
-        "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/925b15f6-d2a5-48f2-8b7c-374de8979662/ddfchqu-26d70e22-38d1-4335-9bee-765f6951ad5b.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvOTI1YjE1ZjYtZDJhNS00OGYyLThiN2MtMzc0ZGU4OTc5NjYyXC9kZGZjaHF1LTI2ZDcwZTIyLTM4ZDEtNDMzNS05YmVlLTc2NWY2OTUxYWQ1Yi5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.xj2nBs_iGbFpJkNtFUMcOiotIivlfeJ7HsDayhR3HPk";
+      backgroundImage = new Image();
+      backgroundImage.onload = start;
+      backgroundImage.src = "https://i.imgur.com/brRdck7.png";
 
-      board.init(canvas, animalSheet);
+      animalImageSheet = new Image();
+      animalImageSheet.onload = start;
+      animalImageSheet.src =
+        "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3a29bffb-b0ad-46ad-b5a1-15ef7501b677/datsnt7-949b4894-6a57-4b59-b79d-cdcc015ff582.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvM2EyOWJmZmItYjBhZC00NmFkLWI1YTEtMTVlZjc1MDFiNjc3XC9kYXRzbnQ3LTk0OWI0ODk0LTZhNTctNGI1OS1iNzlkLWNkY2MwMTVmZjU4Mi5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.tT1Ez6uLOVAcxqdEj0W6VvAEVoLL0IwnHViPV73a4To";
 
+      board.init(canvas);
+      board.setBackground(backgroundImage);
       let animal = new Animal("animal1");
-      animal.init(animalSheet, 24, 385, 72, 95, 0, 10);
+      animal.init(animalImageSheet, 91, 320, 30, 30, 0, 10);
       animal.setMovement(walk);
       board.addGameObject(animal);
 
       let animal2 = new Animal("animal2");
-      animal2.init(animalSheet, 24, 385, 72, 95, 0, 150);
+      animal2.init(animalImageSheet, 91, 320, 30, 30, 0, 150);
       board.addGameObject(animal2);
 
       setInterval(update, 150); // 33 milliseconds = ~ 30 frames per sec

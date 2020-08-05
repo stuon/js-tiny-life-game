@@ -57,7 +57,7 @@ class GameObject {
 
     ctx.drawImage(
       this.#image,
-      this.#imgPosition.x + (this.#frame % 5) * 96,
+      this.#imgPosition.x + (this.#frame % 4) * 33,
       this.#imgPosition.y,
       this.#imgPosition.w,
       this.#imgPosition.h,

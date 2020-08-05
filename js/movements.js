@@ -1,6 +1,6 @@
 const solid = function () {};
 
 const walk = function (position) {
-  position.x += 16;
+  position.x += 10;
   return position;
 };

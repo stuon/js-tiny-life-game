@@ -87,8 +87,6 @@ var app = (function (board) {
 
   let update = function () {
     board.update();
-    //var message = "frame update";
-    // writeMessage(canvas, message);
   };
 
   return {
@@ -110,6 +108,7 @@ var app = (function (board) {
 
       let animal = new Animal("animal1");
       animal.init(animalSheet, 24, 385, 72, 95, 0, 10);
+      animal.setMovement(walk);
       board.addGameObject(animal);
 
       let animal2 = new Animal("animal2");

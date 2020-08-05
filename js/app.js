@@ -109,11 +109,12 @@ var app = (function (board) {
       board.init(canvas, animalSheet);
 
       let animal = new Animal("animal1");
-      animal.init(animalSheet, 24, 387, 73, 95);
+      animal.init(animalSheet, 24, 385, 72, 95, 0, 10);
       board.addGameObject(animal);
 
-      // let animal2 = new Animal("animal2", animalSheet, 100, 100);
-      // board.addGameObject(animal2);
+      let animal2 = new Animal("animal2");
+      animal2.init(animalSheet, 24, 385, 72, 95, 0, 150);
+      board.addGameObject(animal2);
 
       setInterval(update, 150); // 33 milliseconds = ~ 30 frames per sec
     },

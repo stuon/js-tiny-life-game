@@ -15,15 +15,17 @@ class GameObject {
     this.#name = name;
   }
 
-  init(image, positionX, positionY, width, height) {
+  init(image, imgPosX, imgPosY, imgWidth, imgHeight, posX, posY) {
     this.#image = image;
-    this.#imgPosX = positionX;
-    this.#imgPosY = positionY;
-    this.#imgWidth = width;
-    this.#imgHeight = height;
+    this.#imgPosX = imgPosX;
+    this.#imgPosY = imgPosY;
+    this.#imgWidth = imgWidth;
+    this.#imgHeight = imgHeight;
 
-    this.#width = width;
-    this.#height = height;
+    this.#positionX = posX;
+    this.#positionY = posY;
+    this.#width = imgWidth;
+    this.#height = imgHeight;
   }
 
   checkClick(x, y) {
@@ -41,7 +43,7 @@ class GameObject {
 
   #frame = 0;
   update(ctx) {
-    this.#positionX = this.#frame * 20;
+    this.#positionX += 16;
     //this.#positionY = 0;
 
     ctx.drawImage(

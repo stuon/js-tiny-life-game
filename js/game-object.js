@@ -1,25 +1,3 @@
-class Position {
-  x = 0;
-  y = 0;
-  w = 0;
-  h = 0;
-
-  constructor(x, y, w, h) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-  }
-
-  isHit(x, y) {
-    if (x < this.x) return false;
-    if (x > this.x + this.w) return false;
-    if (y < this.y) return false;
-    if (y > this.y + this.h) return false;
-    return true;
-  }
-}
-
 class GameObject {
   #name = "";
   #position = null;
@@ -42,6 +20,8 @@ class GameObject {
     this.#movementFunction = movementFunction;
   }
 
+  moveTo(speed) {}
+
   checkClick(x, y) {
     if (this.#position.isHit(x, y)) console.log("hit!");
   }
@@ -55,9 +35,11 @@ class GameObject {
     if (this.#movementFunction)
       this.#position = this.#movementFunction(this.#position);
 
+    const imageSheet = [0, 1, 2, 1];
+
     ctx.drawImage(
       this.#image,
-      this.#imgPosition.x + (this.#frame % 4) * 33,
+      this.#imgPosition.x + imageSheet[this.#frame % 4] * 33,
       this.#imgPosition.y,
       this.#imgPosition.w,
       this.#imgPosition.h,

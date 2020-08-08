@@ -1,36 +1,15 @@
-function repeatXI(callback, interval, repeats, immediate, finalCallback) {
-  let timer, trigger;
+import repeatXI from "./helperFunctions";
+import GameBoard from "./models/GameBoard";
+import Animal from "./models/Animal";
+import { walk } from "./movements";
 
-  trigger = function () {
-    let success = callback();
-
-    if (success) {
-      success = --repeats > 0;
-    }
-
-    if (!success) {
-      clearInterval(timer);
-
-      if (finalCallback) finalCallback();
-    }
-  };
-
-  interval = interval <= 0 ? 1000 : interval; // default: 1000ms
-  repeats = parseInt(repeats, 10) || 0; // default: repeat forever
-  timer = setInterval(trigger, interval);
-
-  if (!!immediate) {
-    // Coerce boolean
-    trigger();
-  }
-}
-
-var app = (function (board) {
+const app = (function () {
   let canvas;
   let animalImageSheet;
   let backgroundImage;
+  let board = new GameBoard();
 
-  var GAME_STATES = {
+  const GAME_STATES = {
     Normal: 1,
     Pause: 2,
     Completed: 3,
@@ -129,6 +108,6 @@ var app = (function (board) {
       setInterval(update, 150); // 33 milliseconds = ~ 30 frames per sec
     },
   };
-})(gameBoard);
+})();
 
 app.init();

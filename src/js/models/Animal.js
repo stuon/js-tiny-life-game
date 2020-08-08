@@ -1,4 +1,6 @@
-class Animal extends GameObject {
+import GameBaseObject from "./GameBaseObject";
+
+export default class Animal extends GameBaseObject {
   constructor(name) {
     super(name);
   }

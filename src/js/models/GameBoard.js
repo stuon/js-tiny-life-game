@@ -7,6 +7,10 @@ export default class GameBoard {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
 
+    this.reset();
+  }
+
+  reset() {
     this.gameObjects = [];
     this.backgroundImage;
   }

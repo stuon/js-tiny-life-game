@@ -3,6 +3,11 @@ import GameBoard from "./models/GameBoard";
 import Animal from "./models/Animal";
 import { walk } from "./movements";
 
+const elements = {
+  canvas: document.querySelector("#game"),
+  clearButton: document.getElementById("clear"),
+};
+
 const app = (function () {
   let canvas;
   let animalImageSheet;
@@ -30,20 +35,31 @@ const app = (function () {
   };
 
   let newGame = function () {
-    var sheep = new Animal("sheet", 10, 10);
-    board.addGameObject(sheep);
+    board.reset();
+
+    board.setBackground(backgroundImage);
+    let animal = new Animal("animal1");
+    animal.init(animalImageSheet, 91, 320, 30, 30, 0, 10);
+    animal.setMovement(walk);
+    board.addGameObject(animal);
+
+    let animal2 = new Animal("animal2");
+    animal2.init(animalImageSheet, 91, 320, 30, 30, 0, 150);
+    board.addGameObject(animal2);
   };
 
   let setupEventListeners = function () {
+    /*
     canvas.addEventListener(
       "mousemove",
       function (evt) {
         var mousePos = getMousePos(canvas, evt);
         var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
-        //  writeMessage(canvas, message);
+        writeMessage(canvas, message);
       },
       false
     );
+*/
     canvas.addEventListener(
       "click",
       function (evt) {
@@ -56,7 +72,7 @@ const app = (function () {
       false
     );
 
-    document.getElementById("clear").onclick = function () {
+    elements.clearButton.onclick = function () {
       newGame();
     };
   };
@@ -77,7 +93,7 @@ const app = (function () {
 
   return {
     init: function () {
-      canvas = document.querySelector("#game");
+      canvas = elements.canvas;
 
       // Canvas size depends on the windows grid
       canvas.height = canvas.getBoundingClientRect().height;
@@ -95,15 +111,6 @@ const app = (function () {
         "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3a29bffb-b0ad-46ad-b5a1-15ef7501b677/datsnt7-949b4894-6a57-4b59-b79d-cdcc015ff582.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvM2EyOWJmZmItYjBhZC00NmFkLWI1YTEtMTVlZjc1MDFiNjc3XC9kYXRzbnQ3LTk0OWI0ODk0LTZhNTctNGI1OS1iNzlkLWNkY2MwMTVmZjU4Mi5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.tT1Ez6uLOVAcxqdEj0W6VvAEVoLL0IwnHViPV73a4To";
 
       board.init(canvas);
-      board.setBackground(backgroundImage);
-      let animal = new Animal("animal1");
-      animal.init(animalImageSheet, 91, 320, 30, 30, 0, 10);
-      animal.setMovement(walk);
-      board.addGameObject(animal);
-
-      let animal2 = new Animal("animal2");
-      animal2.init(animalImageSheet, 91, 320, 30, 30, 0, 150);
-      board.addGameObject(animal2);
 
       setInterval(update, 150); // 33 milliseconds = ~ 30 frames per sec
     },
